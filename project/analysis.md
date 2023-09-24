@@ -2,12 +2,12 @@ Product:
     - name
     - description
     - image
-    - images
+    - images *
     - price
     - flag [sale, new, feature]
     - brand 
     - sku
-    - reviews:
+    - reviews: *
         - user
         - rate
         - feedback
@@ -16,7 +16,7 @@ Product:
     
     - subtitle
     - quantity
-brand:
+brand: *
     - image
     - title
     - product_count
