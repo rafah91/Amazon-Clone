@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.text import timezone
+from django.utils import timezone
 from taggit.managers import TaggableManager
-from django.utiles.text import slugify
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -18,11 +18,11 @@ class Product(models.Model):
     subtitle = models.TextField(_('Subtitle'),max_length=500)
     description = models.TextField(_('Description'),max_length=100000)
     image = models.ImageField(_('Image'),upload_to='products')
-    price = models.FloatField(_('Price'),)
-    flag = models.CharField(max_length=10, choices=FLAG_TYPES)
+    price = models.FloatField(_('Price'))
+    flag = models.CharField(_('Flag'),max_length=10, choices=FLAG_TYPES)
     brand = models.ForeignKey('Brand',verbose_name=_('Brand'),related_name='product_brand',on_delete=models.SET_NULL,null=True,blank=True)
     sku = models.CharField(_('SKU'),max_length=12)
-    quantity = models.IntegerField(_('Quantity'),)
+    quantity = models.IntegerField(_('Quantity'))
     tags = TaggableManager()
     slug = models.SlugField(null=True,blank=True)
     
@@ -30,7 +30,7 @@ class Product(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
  
 
@@ -51,7 +51,7 @@ class Brand(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.name)
         super(Brand, self).save(*args, **kwargs)
  
     

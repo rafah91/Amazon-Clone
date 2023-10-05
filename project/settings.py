@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #3th app
-    "taggit"
+    "taggit",
     
     #my apps
     'products',
