@@ -34,8 +34,8 @@
                             </ul>
                             <ul class="details-thumb">
                                 {% for image in object.product_images.all %}
-                                     <li><img src="{{image.image.url}}" alt="product"></li>
-                                {% endfor %}
+                                <li><img src="{{image.image.url}}" alt="product"></li>
+                                   {% endfor %}
                             </ul>
                         </div>
                     </div>
