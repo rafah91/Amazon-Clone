@@ -1,7 +1,6 @@
 products:
     - reviews
-    - brand list & detail
-    - dummy data
+    - brand detail
     - pagination
 api:
     - crud operations
