@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     
     #3th app
     "taggit",
-    
+    'rest_framework',
     #my apps
     'products',
+    
     
     
 ]

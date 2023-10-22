@@ -1,6 +1,6 @@
 products:
-    - reviews
-    - brand detail
+   
+    
     - pagination
 api:
     - crud operations

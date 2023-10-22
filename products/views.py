@@ -1,4 +1,4 @@
-from typing import Any
+
 from django.shortcuts import render
 from django.views import generic
 from .models import Product , Brand , Review
