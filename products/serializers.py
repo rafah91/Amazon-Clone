@@ -3,14 +3,30 @@ from .models import Product , Brand , Review , ProductImages
 
 
     
-class BrandSerializer(serializers.ModelSerializer):
+
+
+class ProductListSerializer(serializers.ModelSerializer):
+    brand = serializers.StringRelatedField()
+    class Meta:
+        model = Product
+        fields = '__all__'
+        
+        
+class ProductDetailSerializer(serializers.ModelSerializer):
+    brand = serializers.StringRelatedField()
+    class Meta:
+        model = Product
+        fields = '__all__'       
+        
+        
+        
+class BrandListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
         fields = '__all__'
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    brand = BrandSerializer()
+class BrandDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = Brand
         fields = '__all__'
