@@ -3,9 +3,17 @@ from django.shortcuts import render
 from django.views import generic
 from .models import Product , Brand , Review
 
+
+
 def brand_list(request):
     data = Brand.objects.all()
     return render(request,'html',{'brand':data})
+
+
+
+def mydebug(request):
+    data = Product.objects.select_related('brand').all()
+    return render(request,'products/debug.html',{'data':data})
     
 class ProductList(generic.ListView):
     model = Product
