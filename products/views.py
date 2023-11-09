@@ -46,13 +46,14 @@ def mydebug(request):
     
     
         # aggregation : min max sum avg count we have to import a lone above
-    # data = Product.objects.aggregate(myavg = Avg('price'))
-    # data = Product.objects.aggregate(Count('quantity'))
-    # data = Product.objects.aggregate(Count('id'))
+    #data = Product.objects.aggregate(myavg = Avg('price'))
+    #data = Product.objects.aggregate(Count('quantity'))
+    #data = Product.objects.aggregate(Count('id'))
     
-    # data = Product.objects.aggregate(Sum('quantity'))
+    #data = Product.objects.aggregate(Sum('quantity'))
     
-    # data = Product.objects.aggregate(Min('price'))
+    #data = Product.objects.aggregate(Min('price'))
+    #data = Product.objects.annotate(price_with_tax=F('price')*1.25) we must add a line import above with F and value
     
     data = Product.objects.all()
     return render(request,'products/debug.html',{'data':data})
