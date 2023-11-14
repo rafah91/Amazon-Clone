@@ -21,3 +21,18 @@ brand: *
     - title
     - product_count
     - rate
+
+orders:
+- status[recieved, processed, shipped, deleted]
+- code 
+- order_time
+- delivery_time
+- sub_total
+- dicount
+- delivery_fee
+- total
+- delivery_location
+- product
+- brand
+- price
+- quantity
