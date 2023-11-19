@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 import datetime
 from products.models import Product
+from utils.generate_code import generate_code
 
 ORDER_STATUS = (
     ('Recieved','Recieved'),
@@ -13,7 +14,7 @@ ORDER_STATUS = (
 # Create your models here.
 class Order(models.Model):
     user = models.ForeignKey(User, related_name='order_user',on_delete=models.SET_NULL,null=True, blank=True)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=10,default=generate_code)
     status = models.CharField(max_length=15, choices=ORDER_STATUS, default='Recieved')
     order_time = models.DateTimeField(default=timezone.now)
     delivery_time = models.DateTimeField(null=True, blank=True)
@@ -30,10 +31,9 @@ class Order(models.Model):
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, related_name='order_detail',on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='orderdetail_product',on_delete=models.SET_NULL,null=True,blank=True)
-    quantity = ''
-    brand = ''
-    price = ''
-    total = ''
+    quantity = models.IntegerField()
+    price = models.FloatField()
+    total = models.FloatField()
     
 
 class Coupon(models.Model):
