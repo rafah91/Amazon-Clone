@@ -13,7 +13,7 @@ class Company(models.Model):
     insta_link = models.URLField(null=True,blank=True)
     linkedin_link = models.URLField(null=True,blank=True)
     emails = models.CharField(max_length=100)
-    phones = models.IntegerField(max_length=100)
+    phones = models.IntegerField()
     adress = models.TextField(max_length=150)
     android_link = models.URLField(null=True,blank=True)
     
@@ -21,8 +21,8 @@ class Company(models.Model):
         return self.name
     
     
-    class DeliveryFee(models.Model):
-        fee = models.FloatField()
+class DeliveryFee(models.Model):
+    fee = models.FloatField()
         
-        def __str__(self):
-            return str(self.fee)
+    def __str__(self):
+        return str(self.fee)
