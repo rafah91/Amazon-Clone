@@ -66,16 +66,16 @@
                                                         <i class="icofont-check"></i>
                                                         <span>order recieved</span>
                                                     </li>
-                                                    <li class="order-track-item">
-                                                        <i class="icofont-close"></i>
+                                                    <li class="order-track-item {% if object.status == 'Processed' or object.status == 'Shipped' or object.status == 'Delivered'  %}active{% endif %}">
+                                                        <i class="icofont-{% if object.status == 'Processed' or object.status == 'Shipped' or object.status == 'Delivered'  %}check{% else %}close{% endif %}"></i>
                                                         <span>order processed</span>
                                                     </li>
-                                                    <li class="order-track-item">
-                                                        <i class="icofont-close"></i>
+                                                    <li class="order-track-item {% if object.status == 'Shipped' or object.status == 'Delivered'  %}active{% endif %}">
+                                                        <i class="icofont-{% if object.status == 'Shipped' or object.status == 'Delivered'  %}check{% else %}close{% endif %}"></i>
                                                         <span>order shipped</span>
                                                     </li>
-                                                    <li class="order-track-item">
-                                                        <i class="icofont-close"></i>
+                                                    <li class="order-track-item {% if object.status == 'Delivered'  %}active{% endif %}">
+                                                        <i class="icofont-{% if object.status == 'Delivered'  %}check{% else %}close{% endif %}"></i>
                                                         <span>order delivered</span>
                                                     </li>
                                                 </ul>
