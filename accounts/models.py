@@ -12,4 +12,4 @@ ADDRESS_TYPE = (
 class DeliveryAddress(models.Model):
    user = models.ForeignKey(User,related_name='user_address',on_delete=models.CASCADE)
    type = models.CharField(max_length=20,choices=ADDRESS_TYPE)
-   adress=models.TextField(max_length=300)
+   adress = models.TextField(max_length=300)
