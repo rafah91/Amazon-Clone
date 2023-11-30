@@ -364,29 +364,29 @@
             <ul class="cart-list">
                 
                 {% for item in cart_detail_data %}
-                 
-                <li class="cart-item">
-                    <div class="cart-media">
-                        <a href="#"><img src="{{item.product.image.url}}" alt="product"></a>
-                        <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-                    </div>
-                    <div class="cart-info-group">
-                        <div class="cart-info">
-                            <h6><a href="product-single.html">{{item.product}}</a></h6>
-                            <p>{{item.price}}</p>
+                    
+                    <li class="cart-item">
+                        <div class="cart-media">
+                            <a href="#"><img src="{{item.product.image.url}}" alt="product"></a>
+                            <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                         </div>
-                        <div class="cart-action-group">
-                            <div class="product-action">
-                                
-                                <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item.quantity}}">
-                                
+                        <div class="cart-info-group">
+                            <div class="cart-info">
+                                <h6><a href="product-single.html">{{item.product}}</a></h6>
+                                <p>{{item.price}}</p>
                             </div>
-                            <h6>{{item.total}}</h6>
+                            <div class="cart-action-group">
+                                <div class="product-action">
+                                    
+                                    <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item.quantity}}">
+                                    
+                                </div>
+                                <h6>{{item.total}}</h6>
+                            </div>
                         </div>
-                    </div>
-                </li> 
+                    </li> 
 
-                {% endfor %}
+                 {% endfor %}
             </ul>
             <div class="cart-footer">
             
