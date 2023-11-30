@@ -28,6 +28,11 @@ class OrderDetailAPI(generics.RetrieveAPIView):
 
 
 
+
+
+
+
+
 class ApplyCouponAPI(generics.GenericAPIView):
     def post(self, request,*args, **kwargs):
         user = User.objects.get(username=self.kwargs['username'])
