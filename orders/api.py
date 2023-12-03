@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 import datetime
 
 from .models import Cart , CartDetail , Order , OrderDetail , Coupon
-from .serializers import CartSerializer,CartDetailSerializer,OrderDetailSerializer,OrderSerializer
+from .serializers import CartSerializer,OrderSerializer
 from settings.models import DeliveryFee
+from products.models import Product
 
 
 class OrderListAPI(generics.ListAPIView):
@@ -71,7 +72,20 @@ class CartCreateDetailDeleteAPI(generics.GenericAPIView):
         data = CartSerializer(cart).data 
         return Response({'cart':data})
     
-    
+    def post(self, request,*args, **kwargs):
+        """ add or update """
+        user = User.objects.get(username=self.kwargs['username'])
+        product = Product.objects.get(id=request.data['product_id'])
+        quantity = int(request.data['quantity'])
+        
+        cart = Cart.objects.get(user=request.user , status='Inprogress')
+        cart_detail,created = CartDetail.objects.get_or_create(cart=cart , product=product)
+        
+        #cart_detail.quantity =  cart_detail.quantity + quantity
+        cart_detail.quantity = quantity
+        cart_detail.total = round(quantity * product.price,2)
+        cart_detail.save()
+        return Response({'message':'product was addedd successully'})
     
     def delete(self, request,*args, **kwargs):
         user = User.objects.get(username=self.kwargs['username'])
