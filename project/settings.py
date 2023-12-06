@@ -187,6 +187,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCALE_PATHS = ['locale']
 LANGUAGES = [
-    ("ar", _("Arabic")),
-    ("en", _("English")),
+    ("ar", "Arabic"),
+    ("en", "English"),
+    ("de", "German"),
 ]
