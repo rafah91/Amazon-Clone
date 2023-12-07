@@ -61,6 +61,7 @@ def mydebug(request):
 class ProductList(generic.ListView):
     model = Product
     paginate_by=50
+    
 
 
 class ProductDetail(generic.DetailView):

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -157,8 +158,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
+MODELTRANSLATION_LANGUAGES = ('en', 'ar','de')
+MODELTRANSLATION_AUTO_REGISTER = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -186,6 +187,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCALE_PATHS = ['locale']
+gettext = lambda s: s
 LANGUAGES = [
     ("ar", "Arabic"),
     ("en", "English"),
