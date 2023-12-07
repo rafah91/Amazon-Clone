@@ -52,6 +52,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api-auth/', include('dj_rest_auth.urls')),
     path('api-auth/signup/', include('dj_rest_auth.registration.urls')),
+    path('rosetta/', include('rosetta.urls'))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
