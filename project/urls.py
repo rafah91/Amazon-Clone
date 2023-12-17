@@ -45,6 +45,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/' , include('products.urls')),
     path('orders/' , include('orders.urls',namespace='orders')),
+    path('accounts/' , include('accounts.urls')),
     path("i18n/", include("django.conf.urls.i18n")),
     path("__debug__/", include("debug_toolbar.urls")),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

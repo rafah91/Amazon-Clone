@@ -194,3 +194,4 @@ LANGUAGES = [
     ("en", "English"),
     ("de", "German"),
 ]
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
