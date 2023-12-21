@@ -1,0 +1,8 @@
+<form class="user-form" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    <div class="form-button">
+        <button type="submit">Register</button>
+    </div>
+</form>

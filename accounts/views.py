@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Profile
-from .forms import SignupForm
+from .forms import SignupForm, ActivateForm
 from django.core.mail import send_mail
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -31,9 +31,27 @@ def signup(request):
             return redirect(f'/accounts/{username/activate}')
     else:
         form = SignupForm()
-    return render(request,'signup.html',{'form':form})
+    return render(request,'registration/signup.html',{'form':form})
 
 #signup --------> code:email -----> activate:code ----> login (activated)
 
 def activate(request,username):
-    pass
+    profile = Profile.objects.get(user__username=username)
+    
+    if request.method == 'POST':
+        form = ActivateForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            if code == profile.code :
+                profile.code = ''
+                profile.save()
+                
+                user = User.objects.get(username=username)
+                user.is_active = True
+                user.save()
+                return redirect('/accounts/login')
+        
+    else:  # get
+        form = ActivateForm()
+        
+    return render(request,'registration/activate.html',{'form':form})
