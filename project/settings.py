@@ -187,6 +187,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #        "LOCATION": "redis://127.0.0.1:6379",
 #    }
 #}
+CACHES = {
+   "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://myredis:6379",
+    }
+}
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCALE_PATHS = ['locale']
