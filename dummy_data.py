@@ -46,5 +46,6 @@ def add_reviews(n):
     
 
 
-#add_products(1500)
+add_Brands(294)
+add_products(1500)
 add_reviews(3000)

@@ -1,10 +1,13 @@
-
 from django.shortcuts import render
 from django.views import generic
 from .models import Product , Brand , Review
-#from django.db.models import Q , Value , F
-#from django.db.models.aggregates import Count,Min,Max,Avg,Sum
 
+from django.db.models import Q , Value , F
+from django.db.models.aggregates import Count,Min,Max,Avg,Sum
+from django.views.decorators.cache import cache_page
+from django.utils import translation
+
+from .tasks import send_emails
 
 
 def brand_list(request):
@@ -45,7 +48,7 @@ def mydebug(request):
     
     
     
-        # aggregation : min max sum avg count we have to import a lone above
+    # aggregation : min max sum avg count we have to import a lone above
     #data = Product.objects.aggregate(myavg = Avg('price'))
     #data = Product.objects.aggregate(Count('quantity'))
     #data = Product.objects.aggregate(Count('id'))
@@ -56,6 +59,10 @@ def mydebug(request):
     #data = Product.objects.annotate(price_with_tax=F('price')*1.25) we must add a line import above with F and value
     
     data = Product.objects.all()
+    # data = User.objects.all()  # [1,2,3,4 ....... n]
+    
+    # execute function : task 
+    send_emails.delay(data) # run task  : time 20 sec
     return render(request,'products/debug.html',{'data':data})
     
 class ProductList(generic.ListView):
