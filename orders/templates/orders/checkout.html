@@ -220,7 +220,7 @@
                     <div class="col-lg-12">
                         <div class="account-card mb-0">
                             <div class="checkout-proced">
-                                <button  type="button" class="btn btn-inline">proced to checkout</button>
+                                <button  type="button"  onclick="buy(event)" class="btn btn-inline">proced to checkout</button>
                             </div>
                         </div>
                     </div>
@@ -379,6 +379,24 @@
         <script src="https://js.stripe.com/v3/"></script>
         <script>
             
+            function buy(event){
+                event.preventDefault();
+                
+                stripe = Stripe('{{pub_key}}')
+
+                fetch('/orders/checkout/payment',{
+                    method:'POST',
+                    headers:{
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (response){
+                    return response.json()
+                }).then(function (session){
+                    return stripe.redirectToCheckout({'sessionId':session.session.id})
+                })
+
+            }
         </script>
 {% endblock %}
 

@@ -193,12 +193,14 @@ MEDIA_ROOT=BASE_DIR/"media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-#CACHES = {
-#    "default": {
-#        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#        "LOCATION": "redis://127.0.0.1:6379",
-#    }
-#}
+'''
+CACHES = {
+    "default": {
+       "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+'''
 CACHES = {
    "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
@@ -226,7 +228,11 @@ EMAIL_HOST_USER = "sweetsyrialeena@gmail.com"
 EMAIL_HOST_PASSWORD = "vlllvhvfbmyciezk"
 
 # celery 
-# CELERY_BROKER_URL ='redis://127.0.0.1:6379/0'
-# CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+#CELERY_BROKER_URL ='redis://127.0.0.1:6379/0'
+#CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 CELERY_BROKER_URL ='redis://myredis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://myredis:6379/0'
+
+# Stripe 
+STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51OZIe5HiBYGBB8vCGhVPGOUDof6ECrdfdM1s6tDQaBHzd7M1GjFrjgPLXKlTABD6h3V3ha3TZVORXXN1qPsGTqP300WWU4be45'
+STRIPE_API_KEY_SECRET = 'pk_test_51OZIe5HiBYGBB8vCGhVPGOUDof6ECrdfdM1s6tDQaBHzd7M1GjFrjgPLXKlTABD6h3V3ha3TZVORXXN1qPsGTqP300WWU4be45'
