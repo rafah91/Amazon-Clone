@@ -28,7 +28,33 @@ class OrderDetailAPI(generics.RetrieveAPIView):
         
 
 
+class CreateOrderAPI(generics.GenericAPIView):
+    def post(self,request):
+        user = User.objects.get(username=self.kwargs['username'])
+        code = User.objects.get(username=self.kwargs['code'])
+        cart = Cart.objects.get(user=user , status='Inprogress')
+        cart_detail = CartDetail.objects.filter(cart=cart)
+        
+        new_order = Order.objects.create(
+            user = request.user , 
+            coupon = cart.coupon , 
+            code = code,
+            order_total_discount = cart.cart_total_discount
+        )
 
+        # order_detail : cart_detail
+        for object in cart_detail:
+            OrderDetail.objects.create(
+                order = new_order , 
+                product = object.product , 
+                quantity = object.quantity , 
+                price = object.product.price , 
+                total = object.quantity * object.product.price
+            ) 
+            
+        cart.status = 'Completed'
+        cart.save()
+        return Response({'status':200 , 'message':'order was created successfully'})
 
 
 
