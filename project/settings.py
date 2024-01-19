@@ -124,7 +124,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -143,7 +143,7 @@ DATABASES = {
     "PORT": "5432",
     }
 }
-'''
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -193,7 +193,7 @@ MEDIA_ROOT=BASE_DIR/"media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
+'''
 CACHES = {
     "default": {
        "BACKEND": "django.core.cache.backends.redis.RedisCache",
@@ -207,7 +207,7 @@ CACHES = {
         "LOCATION": "redis://myredis:6379/0",
     }
 }
-'''
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOCALE_PATHS = ['locale']
@@ -228,10 +228,10 @@ EMAIL_HOST_USER = "sweetsyrialeena@gmail.com"
 EMAIL_HOST_PASSWORD = "vlllvhvfbmyciezk"
 
 # celery 
-CELERY_BROKER_URL ='redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
-#CELERY_BROKER_URL ='redis://myredis:6379/0'
-#CELERY_RESULT_BACKEND = 'redis://myredis:6379/0'
+#CELERY_BROKER_URL ='redis://127.0.0.1:6379/0'
+#CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL ='redis://myredis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://myredis:6379/0'
 
 # Stripe 
 STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51OZIe5HiBYGBB8vCGhVPGOUDof6ECrdfdM1s6tDQaBHzd7M1GjFrjgPLXKlTABD6h3V3ha3TZVORXXN1qPsGTqP300WWU4be45'
