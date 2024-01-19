@@ -27,6 +27,7 @@
         <!--=====================================
                     CHECKOUT PART START
         =======================================-->
+
         <section class="inner-section checkout-part">
             <div class="container">
                 <div class="row">
@@ -55,13 +56,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
-                                            {% for object in cart_detail %}  
+                                            {% for object in cart_detail %}                                      
                                                 <tr>
-                                                    <td class="table-serial"><h6>{{forloop.counter}}</h6></td>
+                                                    <td class="table-serial"><h6> {{ forloop.counter }} </h6></td>
                                                     <td class="table-image"><img src="{{object.product.image.url}}" alt="product"></td>
                                                     <td class="table-name"><h6>{{object.product}}</h6></td>
-                                                    <td class="table-price"><h6>${{object.product.price}}<small>/kilo</small></h6></td>
+                                                    <td class="table-price"><h6>${{object.product.price}}</h6></td>
                                                     <td class="table-brand"><h6>{{object.product.brand}}</h6></td>
                                                     <td class="table-quantity"><h6>{{object.quantity}}</h6></td>
                                                     <td class="table-action">
@@ -220,7 +220,7 @@
                     <div class="col-lg-12">
                         <div class="account-card mb-0">
                             <div class="checkout-proced">
-                                <button  type="button"  onclick="buy(event)" class="btn btn-inline">proced to checkout</button>
+                                <button type="button" onclick="buy(event)" class="btn btn-inline">proced to checkout</button>
                             </div>
                         </div>
                     </div>
@@ -377,8 +377,8 @@
         =======================================-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://js.stripe.com/v3/"></script>
+
         <script>
-            
             function buy(event){
                 event.preventDefault();
                 

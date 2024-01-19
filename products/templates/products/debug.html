@@ -6,13 +6,13 @@
     <title>Debug</title>
 </head>
 <body>
-    
-    
-        <ul>
-            {% for object in data %}
-             <li> {{object}} - {{object.brand}} </li>
-            {% endfor %}
-        </ul>
-    
+    <ul>
+        {% comment %} <li>{{data}}</li> {% endcomment %}
+        
+        {% for object in data %}
+          <li> {{object.name}}</li>
+        {% endfor %} 
+        
+    </ul>
 </body>
 </html>

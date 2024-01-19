@@ -1,6 +1,7 @@
 from django.shortcuts import render , redirect
-from .models import Cart , CartDetail , Order, Coupon , OrderDetail
+from .models import Cart , CartDetail , Order  , Coupon , OrderDetail
 from products.models import Product
+
 from settings.models import DeliveryFee
 import datetime
 import stripe
@@ -12,6 +13,8 @@ from utils.generate_code import generate_code
 def order_list(request):
     orders = Order.objects.filter(user=request.user)
     return render(request,'orders/orderlist.html',{'orders':orders})
+
+
 
 
 def add_to_cart(request):
@@ -27,7 +30,10 @@ def add_to_cart(request):
     
     return redirect(f"/products/{product.slug}")
 
+
+
 def checkout(request):
+    
     cart = Cart.objects.get(user=request.user , status='Inprogress')
     cart_detail = CartDetail.objects.filter(cart=cart)
     delivery_fee = DeliveryFee.objects.last().fee
@@ -57,7 +63,6 @@ def checkout(request):
                         'discount': coupon_value , 
                         'total': total , 
                         'pub_key':pub_key
-                        
                     })
     
     
@@ -74,10 +79,7 @@ def checkout(request):
         'total': total , 
         'pub_key':pub_key
     })
-    
-    
-    
-    return render(request,'orders/checkout.html',{})
+
 
 
 # create invoice link 
@@ -119,7 +121,8 @@ def process_payment(request):
 
     return JsonResponse({'session': checkout_session})
 
-#success
+
+# success
 def payment_success(request):
     cart = Cart.objects.get(user=request.user , status='Inprogress')
     cart_detail = CartDetail.objects.filter(cart=cart)
@@ -151,7 +154,8 @@ def payment_success(request):
 
     return render(request,'orders/success.html',{'code':order_code})
 
-#failed
+
+# failed 
 def payment_failed(request):
-    code=''
-    return render(request,'orders/failed.html',{'code':code})
+
+    return render(request,'orders/failed.html',{})
