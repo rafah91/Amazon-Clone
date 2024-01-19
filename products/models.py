@@ -4,7 +4,7 @@ from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-
+from django.db.models.aggregates import Avg
 
 FLAG_TYPES =(
   ('Sale','Sale'),
@@ -32,6 +32,22 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
+
+    def review_count(object):
+        review_count = object.product_review.all().count()
+        return review_count
+        
+        
+    def avg_rate(object):
+        total = 0
+        reviews = object.product_review.all()
+        for r in reviews:
+            total += r.rate
+            
+        if len(reviews) > 0: 
+            return round(total/len(reviews),2)
+        else:
+            return 0  
  
 
 class ProductImages(models.Model):
