@@ -8,6 +8,7 @@ import stripe
 from django.http import JsonResponse
 from django.conf import settings
 from utils.generate_code import generate_code
+from django.template.loader import render_to_string
 
 
 def order_list(request):
@@ -28,7 +29,15 @@ def add_to_cart(request):
     cart_detail.total = round(quantity * product.price,2)
     cart_detail.save()
     
-    return redirect(f"/products/{product.slug}")
+    cart = Cart.objects.get(user=request.user , status='Inprogress')
+    cart_detail = CartDetail.objects.filter(cart=cart)
+    # calculate cart_total + count
+    total = cart.cart_total()
+    cart_count = len(cart_detail)
+    #return redirect(f"/products/{product.slug}") we don't need it because we use ajax
+    page = render_to_string('cart_sidebar.html',{'cart_data':cart , 'cart_detail_data':cart_detail})
+    return JsonResponse({'result':page,'total':total,'cart_count':cart_count})
+
 
 
 

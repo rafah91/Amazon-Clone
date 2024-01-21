@@ -1,16 +1,58 @@
-{% extends 'base.html' %}
-{% load static %}
-
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'en/css/product-details.css' %}">
-{% endblock css %}
-    
-
-
-{% block body %}
-
-
+        {% extends 'base.html' %} {% load static %} {% block css %}
+        <link rel="stylesheet" href="{% static 'en/css/product-details.css' %}" />
+        {% endblock css %} {% block body %}
+        <style>
+        .cart-btn{
+            padding: 10px 0px;
+            color: white !important;
+            background-color: #119744 !important;
+            text-transform: uppercase;
+            width: 100%;
+            font-size: 15px;
+            padding: 6px 0px;
+            border-radius: 6px;
+            text-align: center;
+            text-transform: capitalize;
+            color: var(--heading);
+            background: var(--border);
+            text-shadow: var(-primary-tshadow);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            transition: all linear .3s;
+            -webkit-transition: all linear .3s;
+            -moz-transition: all linear .3s;
+            -ms-transition: all linear .3s;
+            -o-transition: all linear .3s;
+        }
+        </style>
+        <!--=====================================
+                            BANNER PART START
+                =======================================-->
+        <section
+        class="single-banner inner-section"
+        style="background: url(images/single-banner.jpg) no-repeat center"
+        >
+        <div class="container">
+            <h2>product simple</h2>
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">
+                <a href="shop-4column.html">shop-4column</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">product-simple</li>
+            </ol>
+        </div>
+        </section>
+        <!--=====================================
+                            BANNER PART END
+                =======================================-->
         <!--=====================================
                 PRODUCT DETAILS PART START
         =======================================-->
@@ -28,9 +70,7 @@
                                 {% for image in object.product_images.all %}
                                     <li><img src="{{image.image.url}}" alt="product"></li>
                                 {% endfor %}
-                                    
-                                
-
+                              
                             </ul>
                             <ul class="details-thumb">
                                 {% for image in object.product_images.all %}
@@ -78,23 +118,20 @@
                                 </ul>
                             </div>
                             <div class="details-add-group ">
-                                <form class="row" action="{% url 'orders:add-to-cart' %}" method="post">
+                                <form id="addToCart" class="row" action="{% url 'orders:add-to-cart' %}" method="post">
                                     {% csrf_token %}
                                     <div class="col-lg-6">
                                         <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
                                         <input type="hidden" value="{{object.id}}" name="product_id">
                                     </div>
                                     <div class="col-lg-6">
-                                        <button class="product-add" type="submit" title="Add to Cart">
+                                        <button class="cart-btn" type="submit" title="Add to Cart">
                                             <i class="fas fa-shopping-basket"></i>
                                             <span>add to cart</span>
                                         </button> 
                                     </div>
                                 </form>
 
-
-                                
-                                
                             </div>
                             <div class="details-action-group">
                                 <a class="details-wish wish" href="#" title="Add Your Wishlist">
@@ -687,12 +724,32 @@
       })
   
   
-
+      $(document).on('submit','#addToCart',function(event){
+        event.preventDefault(); // stop default : refresh
+  
+        $.ajax({
+          type: $(this).attr('method'), 
+          url: $(this).attr('action'),
+          data: $(this).serialize(), 
+          dataType:'json' , 
+          success:function(response){
+            $('#cart_sidebar').html(response['result'])
+  
+            $('#cart_count').text(response['cart_count'])
+            $('#cart_total').text(response['total'])
+  
+          },
+          error:function(){
+  
+          }
+        })
+      })
   
   
     })
   
-  </script>
+</script>
+  
 {% endblock body %}
 
 
