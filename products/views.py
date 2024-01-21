@@ -8,6 +8,8 @@ from django.views.decorators.cache import cache_page
 from django.utils import translation
 
 from .tasks import send_emails
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 def brand_list(request):
     data = Brand.objects.all()  # query --> method --> change data main query 
@@ -136,4 +138,8 @@ def add_product_review(request,slug): #any function we want to use ajax in it we
         feedback = review
     )
     
-    return redirect(f'/products/{slug}')
+    #return redirect(f'/products/{slug}') we don't use it because we use ajax
+        # get reviews 
+    reviews = Review.objects.filter(product=product)
+    page = render_to_string('include/reviews.html',{'reviews':reviews})
+    return JsonResponse({'result':page})
