@@ -82,8 +82,8 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -133,6 +133,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 DATABASES = {
     "default": dj_database_url.parse("postgres://mypostgres_ut3a_user:dATXDFC70kJW4lGvpBf0qXDT8Ze2Lbul@dpg-cn4fchvqd2ns73em03d0-a.oregon-postgres.render.com/mypostgres_ut3a",conn_max_age=600)
     }

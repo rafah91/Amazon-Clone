@@ -2,6 +2,8 @@ from django.shortcuts import render , redirect
 from .models import Cart , CartDetail , Order  , Coupon , OrderDetail
 from products.models import Product
 
+from django.contrib.auth.decorators import login_required
+
 from settings.models import DeliveryFee
 import datetime
 import stripe
@@ -11,6 +13,7 @@ from utils.generate_code import generate_code
 from django.template.loader import render_to_string
 
 
+@login_required
 def order_list(request):
     orders = Order.objects.filter(user=request.user)
     return render(request,'orders/orderlist.html',{'orders':orders})
@@ -41,6 +44,7 @@ def add_to_cart(request):
 
 
 
+@login_required
 def checkout(request):
     
     cart = Cart.objects.get(user=request.user , status='Inprogress')
@@ -122,6 +126,8 @@ def checkout(request):
 
 
 # create invoice link 
+
+@login_required
 def process_payment(request):  
     
     cart = Cart.objects.get(user=request.user , status='Inprogress')
@@ -162,6 +168,8 @@ def process_payment(request):
 
 
 # success
+
+@login_required
 def payment_success(request):
     cart = Cart.objects.get(user=request.user , status='Inprogress')
     cart_detail = CartDetail.objects.filter(cart=cart)
@@ -195,6 +203,8 @@ def payment_success(request):
 
 
 # failed 
+
+@login_required
 def payment_failed(request):
 
     return render(request,'orders/failed.html',{})

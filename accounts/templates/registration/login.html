@@ -24,7 +24,7 @@
                                 <div class="user-form-divider">
                                     <p>or</p>
                                 </div>
-                                <form class="user-form">
+                                <form class="user-form" method="post">
                                     {% csrf_token %}
                                     {% bootstrap_form form %}
                                     <input type="hidden" name="next" value="{{ next }}">

@@ -48,6 +48,8 @@ class Product(models.Model):
             return round(total/len(reviews),2)
         else:
             return 0  
+    class Meta:
+        ordering = ('-id',)
  
 
 class ProductImages(models.Model):

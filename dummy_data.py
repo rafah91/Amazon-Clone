@@ -34,6 +34,8 @@ def add_products(n):
     for x in range(n):
         Product.objects.create(
             name = fake.name() ,
+            name_ar = f'product-{x}',
+            name_en = fake.name() , 
             subtitle = fake.text(max_nb_chars=300) ,
             description = fake.text(max_nb_chars=4000) ,
             image = f"products/{images[random.randint(0,9)]}" ,
@@ -50,7 +52,7 @@ def add_reviews(n):
     for x in range(n):
         Review.objects.create(
             user = User.objects.get(id=random.randint(1,5)) ,
-            product = Product.objects.get(id=random.randint(1,1500)) ,
+            product = Product.objects.get(id=random.randint(1,500)) ,
             rate = random.randint(1,5) ,
             feedback = fake.text(max_nb_chars=200) ,
         )
@@ -58,7 +60,7 @@ def add_reviews(n):
     
 
 
-add_users(20)
-add_Brands(300)
-add_products(1510)
-add_reviews(3010)
+#add_users(20)
+#add_Brands(300)
+add_products(10)
+add_reviews(100)
