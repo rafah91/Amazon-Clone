@@ -74,32 +74,16 @@
                                     </table>
                                 </div>
                                 <div class="chekout-coupon">
+                                    
                                     <button class="coupon-btn">Do you have a coupon code?</button>
-                                    <form class="coupon-form" method="post">
+                                    <form class="coupon-form" method="post" id="couponForm" action="/orders/checkout">
                                         {% csrf_token %}
                                         <input type="text" name="coupon_code" placeholder="Enter your coupon code">
                                         <button type="submit"><span>apply</span></button>
                                     </form>
                                 </div>
-                                <div class="checkout-charge">
-                                    <ul>
-                                        <li>
-                                            <span>Sub total</span>
-                                            <span>${{sub_total}}</span>
-                                        </li>
-                                        <li>
-                                            <span>delivery fee</span>
-                                            <span>${{delivery_fee}}</span>
-                                        </li>
-                                        <li>
-                                            <span>discount</span>
-                                            <span>${{discount}}</span>
-                                        </li>
-                                        <li>
-                                            <span>Total<small>(Incl. VAT)</small></span>
-                                            <span>${{total}}</span>
-                                        </li>
-                                    </ul>
+                                <div class="checkout-charge" id="code-apply">
+                                    {% include "include/coupon_apply.html" %}
                                 </div>
                             </div>
                         </div>
@@ -397,6 +381,32 @@
                 })
 
             }
+
+            $(document).ready(function(){
+  
+  
+                $(document).on('submit','#couponForm',function(event){
+                  event.preventDefault(); // stop default : refresh
+            
+                  $.ajax({
+                    type: $(this).attr('method'), 
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(), 
+                    dataType:'json' , 
+                    success:function(response){
+                      $('#code-apply').html(response['result'])
+                      $('#code-apply').trigger("reset");
+                    },
+                    error:function(){
+            
+                    }
+                  })
+                })
+           
+            
+              })
+
+
         </script>
 {% endblock %}
 

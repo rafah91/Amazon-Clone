@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-q@72grdmgk^5xqmlmg_i&e=u^&d8t=d0^0gnfl5cb@ka8vfwa0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,6 +82,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -125,12 +127,15 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": dj_database_url.parse("postgres://mypostgres_ut3a_user:dATXDFC70kJW4lGvpBf0qXDT8Ze2Lbul@dpg-cn4fchvqd2ns73em03d0-a.oregon-postgres.render.com/mypostgres_ut3a",conn_max_age=600)
     }
-}
 
 
 # DATABASES = {
@@ -179,6 +184,7 @@ MODELTRANSLATION_AUTO_REGISTER = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     
@@ -236,3 +242,5 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 # Stripe 
 STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51OZIe5HiBYGBB8vCGhVPGOUDof6ECrdfdM1s6tDQaBHzd7M1GjFrjgPLXKlTABD6h3V3ha3TZVORXXN1qPsGTqP300WWU4be45'
 STRIPE_API_KEY_SECRET = 'sk_test_51OZIe5HiBYGBB8vCW9UlQ5AOWKvaj2h17cfgnxKK1eDsVQg0XpzmRpdJXGoptNjiZ4TITrhBcXxxDutDzjKgKniK00OtRjNkIu'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

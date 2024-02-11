@@ -65,14 +65,33 @@ def checkout(request):
                 cart.cart_total_discount = sub_total
                 cart.save()
             
-                return render(request,'orders/checkout.html',{
+                cart = Cart.objects.get(user=request.user , status='Inprogress')
+                cart_detail = CartDetail.objects.filter(cart=cart)
+                html=render_to_string('include/coupon_apply.html',{'cart_data':cart , 'cart_detail_data':cart_detail})
+                return JsonResponse({'result':html,               
                         'cart_detail': cart_detail , 
                         'delivery_fee': delivery_fee , 
                         'sub_total': sub_total , 
                         'discount': coupon_value , 
                         'total': total , 
-                        'pub_key':pub_key
-                    })
+                        'pub_key':pub_key})
+            
+            
+                # return render(request,'orders/checkout.html',{
+                #         'cart_detail': cart_detail , 
+                #         'delivery_fee': delivery_fee , 
+                #         'sub_total': sub_total , 
+                #         'discount': coupon_value , 
+                #         'total': total , 
+                #         'pub_key':pub_key
+                #     })
+    
+
+    
+    
+    
+    
+    
     
     
     discount = 0
@@ -80,14 +99,25 @@ def checkout(request):
     
     
     
-    return render(request,'orders/checkout.html',{
-        'cart_detail': cart_detail , 
-        'delivery_fee': delivery_fee , 
-        'sub_total': sub_total , 
-        'discount': discount , 
-        'total': total , 
-        'pub_key':pub_key
-    })
+    # return render(request,'orders/checkout.html',{
+    #     'cart_detail': cart_detail , 
+    #     'delivery_fee': delivery_fee , 
+    #     'sub_total': sub_total , 
+    #     'discount': discount , 
+    #     'total': total , 
+    #     'pub_key':pub_key
+    # })
+    cart = Cart.objects.get(user=request.user , status='Inprogress')
+    cart_detail = CartDetail.objects.filter(cart=cart)
+    
+    html=render_to_string('include/coupon_apply.html',{'cart_data':cart , 'cart_detail_data':cart_detail})
+    return JsonResponse({'result':html,
+                        'cart_detail': cart_detail , 
+                        'delivery_fee': delivery_fee , 
+                        'sub_total': sub_total , 
+                        'discount': discount , 
+                        'total': total , 
+                        'pub_key':pub_key}) 
 
 
 
